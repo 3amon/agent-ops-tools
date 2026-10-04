@@ -1,0 +1,115 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 10,
+  "config": "strip",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 42.06,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    369,
+    2436,
+    242,
+    214
+  ],
+  "final_text": "I've set a monthly reminder for you to pay rent on the 1st.\n\nThere are currently no reminders on your list for this week.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 12:05 PM PDT (ISO: 2026-04-22T12:05:02-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1.  Set a recurring reminder to pay rent on the 1st of each month.\n2.  See what is on their list for the current week.\n\nTo accomplish this, I need to use the `reminders` skill.\nFirst, I will load the `reminders` skill.\nThen, I will use the tools provided by that skill to add the recurring reminder and retrieve the list for the current week.",
+      "tool_calls": [
+        {
+          "id": "call_61cgv20h",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 5.45
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. A reminder to pay rent on the 1st of each month.\n2. To know what's on their list this week.\n\nFor the first part, I need to call the `remember` function.\n- `title`: \"Pay rent\"\n- `recurrence`: \"monthly\"\n- `due_date`: The 1st of each month. Since the recurrence is monthly, the `due_date` should probably be set to the first of the next month (May 1st, 2026) or just the 1st. The tool description says \"Resolve natural-language dates to ISO YYYY-MM-DD\". For a recurring monthly item, I'll set it to the next occurrence. Today is April 22, 2026. The 1st of the next month is May 1, 2026.\n- `recurrence_config`: I need to specify which day. Usually, for \"1st of each month\", the config might be needed if the standard enum isn't enough, but the enum `monthly` usually implies the same day. However, `due_date` is usually the start. Let's set `due_date` to 2026-05-01 and `recurrence` to `monthly`. I'm not sure if `recurrence_config` is needed for the specific day of the month if `monthly` isn't enough. The description says \"monthly\" is an enum. I will try `recurrence: \"monthly\"` and see if that's sufficient, or if I need to put more in config. The tool schema has `recurrence_config` as an object. For \"1st of each month\", I'll assume `due_date` sets the day.\n\nWait, looking at the tool definition: `recurrence` is an enum. `recurrence_config` is an object. Usually, for monthly, you might need to specify the day. But let's stick to the simplest interpretation first. If I set `due_date` to 2026-05-01 and `recurrence` to `monthly`, it should work.\n\nFor the second part, I need to call `list_reminders` with `filter: \"this_week\"`.\n\nLet's do both.\n\nRefinement on the reminder:\nThe user said \"1st of each month\".\n`due_date`: 2026-05-01 (next occurrence).\n`recurrence`: monthly.\n`recurrence_config`: maybe `{ \"day\": 1 }`? The schema doesn't specify the structure of `recurrence_config`. I'll try just setting `due_date` to the 1st and `recurrence` to monthly first, or maybe I should set `due_date` to 2026-04-01 (past) to indicate it runs monthly? No, usually you set the next due date. I'll use 2026-05-01.\n\nActually, standard iCalendar recurrence usually needs more detail for \"1st\" if it's not just \"monthly\" (which defaults to current day). But since I can't be sure of the API's behavior without documentation, I will provide the specific date in `due_date` and `recurrence: \"monthly\"`.\n\nLet's execute.",
+      "tool_calls": [
+        {
+          "id": "call_ifie01pc",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "title": "Pay rent"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 27.7
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_d0b82d\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user asked me to remind them to pay rent on the 1st of each month. I created a reminder and it's recurring monthly.\nNow I need to answer their second question: \"tell me what's on my list this week.\"\nI need to list reminders for this week.",
+      "tool_calls": [
+        {
+          "id": "call_vw5f2x3v",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 4.36
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a monthly reminder for you to pay rent on the 1st.\n\nThere are currently no reminders on your list for this week.",
+      "thinking": "The user asked two things:\n1. Remind them to pay rent on the 1st of each month - Done.\n2. Tell them what's on their list this week.\n\nI checked the list and there are no reminders this week. I should tell them that.",
+      "_round": 3,
+      "_round_wall_s": 4.54
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "scenario_id": "date_math",
+  "scenario_prompt": "Remind me to check my car insurance in 10 days.",
+  "rep": 0,
+  "config": "strip",
+  "prompt": "Remind me to check my car insurance in 10 days.",
+  "rounds_used": 3,
+  "wall_s": 16.91,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    344,
+    254,
+    157
+  ],
+  "final_text": "I've reminded you to check your car insurance on May 2, 2026.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:46 AM PDT (ISO: 2026-04-22T10:46:14-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to check my car insurance in 10 days."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded about checking their car insurance in 10 days.\nI need to use the `reminders` skill for this.\nFirst, I should call `load_skill` with the name `reminders`.\nThen I can likely add the reminder using a tool from that skill.\n\nStep 1: Load the reminders skill.\nStep 2: Add the reminder.\n\nLet's start by loading the skill.",
+      "tool_calls": [
+        {
+          "id": "call_xd55popv",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 5.26
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded to check their car insurance in 10 days.\nCurrent date: Wednesday, April 22, 2026.\n10 days from April 22, 2026 is May 2, 2026.\nI need to call the `remember` tool with the title \"Check car insurance\" and due_date \"2026-05-02\".",
+      "tool_calls": [
+        {
+          "id": "call_hj20yw05",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Check car insurance",
+              "due_date": "2026-05-02",
+              "urgency": "medium",
+              "type": "task"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 7.66
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_e55360\", \"title\": \"Check car insurance\", \"type\": \"task\", \"urgency\": \"medium\", \"due_date\": \"2026-05-02\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've reminded you to check your car insurance on May 2, 2026.",
+      "thinking": "The user asked to be reminded in 10 days.\nCurrent date: April 22, 2026.\n10 days later: May 2, 2026.\nI successfully created the reminder. I should confirm it.",
+      "_round": 2,
+      "_round_wall_s": 3.99
+    }
+  ]
+}

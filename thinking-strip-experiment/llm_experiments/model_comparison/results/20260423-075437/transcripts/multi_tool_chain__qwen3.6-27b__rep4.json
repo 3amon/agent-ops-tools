@@ -1,0 +1,111 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 4,
+  "model": "qwen3.6:27b",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 3,
+  "wall_s": 77.87,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    535,
+    567,
+    88
+  ],
+  "total_thinking_chars": 1190,
+  "eval_tokens": 540,
+  "prompt_tokens": 2598,
+  "tokens_per_second": 9.4,
+  "final_text": "Done! I've added a monthly rent reminder for the 1st.\n\nHere's what's on your list for this week:\n* Nothing yet \u2014 your list is empty.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Thursday, April 23, 2026 at 08:07 AM PDT (ISO: 2026-04-23T08:07:50-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. Add a recurring reminder for rent payment on the 1st of each month.\n2. View their reminders for the current week.\n\nI need to use the `reminders` skill for both. I will load the skill first, then call the tool to add the reminder, and then call the tool to list the current reminders.\n\nStep 1: Load the `reminders` skill.\nStep 2: Add the recurring reminder \"Pay rent\".\nStep 3: List the reminders for this week.\n\nLooking at the `load_skill` tool:\n`load_skill(name=\"reminders\")`\n\nI'll make the tool call now.",
+      "tool_calls": [
+        {
+          "id": "call_htmrwskb",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 23.82
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to:\n1. Create a recurring reminder for rent on the 1st of each month.\n2. List reminders for this week.\n\nI'll call `remember` to save the rent reminder, then `list_reminders` with filter \"this_week\".\n\nRecurrence for rent: monthly.\nDue date: 1st of the month. Since it's a recurring bill, I'll set the first due date to the next 1st. Current date is April 23, 2026. The next 1st is May 1, 2026. I'll set due_date to \"2026-05-01\".\nTitle: \"Pay rent\"\nType: bill or reminder. I'll use \"bill\".\nUrgency: medium.\nRecurrence: monthly.\n\nLet's make the tool calls.",
+      "tool_calls": [
+        {
+          "id": "call_r1hto8dh",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "type": "bill",
+              "urgency": "medium",
+              "recurrence": "monthly",
+              "due_date": "2026-05-01"
+            }
+          }
+        },
+        {
+          "id": "call_wu1zqibe",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 41.24
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_405182\", \"title\": \"Pay rent\", \"type\": \"bill\", \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-23\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "Done! I've added a monthly rent reminder for the 1st.\n\nHere's what's on your list for this week:\n* Nothing yet \u2014 your list is empty.",
+      "thinking": "The rent reminder has been saved.\nThe list for this week is empty.\nI should report both.",
+      "_round": 2,
+      "_round_wall_s": 12.81
+    }
+  ]
+}

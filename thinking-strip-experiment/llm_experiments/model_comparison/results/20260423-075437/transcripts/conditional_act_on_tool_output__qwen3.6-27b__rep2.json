@@ -1,0 +1,7 @@
+{
+  "scenario_id": "conditional_act_on_tool_output",
+  "scenario_prompt": "Check the weather for this Saturday. If it's not going to rain, remind me to wash my car that day.",
+  "rep": 2,
+  "error": "timeout: timed out",
+  "model": "qwen3.6:27b"
+}

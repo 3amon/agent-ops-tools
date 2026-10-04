@@ -1,0 +1,111 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 5,
+  "model": "qwen3.6:27b",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 3,
+  "wall_s": 134.29,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    1495,
+    901,
+    356
+  ],
+  "total_thinking_chars": 2752,
+  "eval_tokens": 991,
+  "prompt_tokens": 2598,
+  "tokens_per_second": 9.4,
+  "final_text": "I've added a recurring high-priority reminder to pay rent on the 1st of every month, starting **May 1st**.\n\n**Reminders for this week (Apr 23 - Apr 29):**\n* (No reminders scheduled this week)",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Thursday, April 23, 2026 at 07:58 AM PDT (ISO: 2026-04-23T07:58:18-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to:\n1. Create a recurring reminder to pay rent on the 1st of each month.\n2. View the current reminders for this week.\n\nI need to use the `reminders` skill.\nFirst, I will load the skill, then add the reminder, and finally list the reminders for the current week.\nActually, the skill definition says: \"Call this FIRST when the user wants functionality not in your always-available tools.\"\nI will load the reminders skill. Then I'll call the tools to add the rent reminder and list the current week's reminders.\n\nWait, I can't call multiple tools in one turn if I only have `load_skill`.\nI will load the skill first.\nThen in the next turn, I'll add the reminder and get the list.\nWait, I can emit multiple `load_skill` calls if needed, but here I only need `reminders`.\nSo I'll just call `load_skill(name=\"reminders\")`.\nAfter the tool returns, I'll proceed with the actual reminder actions.\n\nActually, the prompt says \"Skills are loaded for the current turn only. Emit multiple load_skill calls if a single turn needs multiple skills (parallel in one round is fine).\"\nThis implies I should just load the skill now. The tool execution will happen, then I get the new tools. I will then use them.\nI will respond by loading the skill.\nWait, looking at the system prompt, I am supposed to act as the AI. I should call `load_skill` now.\n\nActually, I can just call `load_skill(name=\"reminders\")` and stop. The system will load it, then I'll have access to `reminders` tools.\nLet's do that.",
+      "tool_calls": [
+        {
+          "id": "call_yi0f6ad6",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 54.77
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to create a recurring reminder to pay rent on the 1st of each month.\nI will call `remember` with:\n- title: \"Pay rent\"\n- recurrence: \"monthly\"\n- due_date: \"2026-05-01\" (Next 1st)\n- urgency: \"high\" (Rent is usually high priority)\nThen I will call `list_reminders` with filter \"this_week\".\nLet's check the date: 2026-05-01 is the 1st of next month.\nWait, `remember` parameters:\n- title: \"Pay rent\"\n- recurrence: \"monthly\"\n- due_date: \"2026-05-01\"\n- type: \"bill\" or \"appointment\"? Let's use \"bill\" or just leave it.\nLet's construct the `remember` call.\nThen `list_reminders(filter=\"this_week\")`.\nI will do both in parallel.\nWait, `reminders` skill is already loaded. I can just call `remember` and `list_reminders`.\nDue date: 2026-05-01.\nLet's do it. \nActually, the prompt says \"on the 1st of each month\". I'll set due_date to 2026-05-01. Recurrence monthly.\nUrgency: high.\nLet's call them.",
+      "tool_calls": [
+        {
+          "id": "call_g5nvne7k",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "title": "Pay rent",
+              "type": "bill",
+              "urgency": "high"
+            }
+          }
+        },
+        {
+          "id": "call_n9o7ylh1",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 55.62
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_5a0f77\", \"title\": \"Pay rent\", \"type\": \"bill\", \"urgency\": \"high\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-23\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've added a recurring high-priority reminder to pay rent on the 1st of every month, starting **May 1st**.\n\n**Reminders for this week (Apr 23 - Apr 29):**\n* (No reminders scheduled this week)",
+      "thinking": "The rent reminder is set for the 1st of each month starting May 1st.\nThe list for this week is currently empty.\nI will inform the user.\nKeep it concise.\nUse bullets.\nCurrent date is April 23. This week is April 23 - April 29.\nRent is on May 1, so it won't show up on this week's list anyway.\nResult: Rent reminder added. No other items for this week.\nDone.",
+      "_round": 2,
+      "_round_wall_s": 23.9
+    }
+  ]
+}

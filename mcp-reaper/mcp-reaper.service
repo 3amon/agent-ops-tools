@@ -1,0 +1,7 @@
+[Unit]
+Description=Reap idle-spinning MCP backend processes
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/mcp-reaper.sh
+Nice=10

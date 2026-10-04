@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodically reap idle-spinning MCP backends
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=150s
+AccuracySec=15s
+
+[Install]
+WantedBy=timers.target

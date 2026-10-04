@@ -1,0 +1,137 @@
+{
+  "scenario_id": "three_tool_mixed_skills",
+  "scenario_prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rep": 7,
+  "config": "keep",
+  "prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rounds_used": 3,
+  "wall_s": 38.04,
+  "tool_call_sequence": [
+    "load_skill",
+    "load_skill",
+    "remember",
+    "list_reminders",
+    "get_weather"
+  ],
+  "thinking_chars_per_round": [
+    590,
+    1077,
+    432
+  ],
+  "final_text": "Here is the information you requested:\n\n**Reminder Created**\n*   **Pay rent**: Starts May 1st, 2026 (repeats monthly).\n\n**Reminders for This Week**\n*   None on your list.\n\n**Weather Forecast (Oakland, CA)**\n*   **Currently**: 59\u00b0F, Overcast.\n*   **Today (Thu)**: High 62\u00b0F, Low 50\u00b0F, 20% chance of rain.\n*   **Friday**: High 58\u00b0F, Heavy rain expected (0.8 inches).\n*   **Weekend**: Clearing up with highs around 70\u00b0F.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 12:06 PM PDT (ISO: 2026-04-22T12:06:23-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user is asking for three things:\n1. Save a reminder for rent on the 1st of each month.\n2. Check the list for this week.\n3. Get the weather forecast.\n\n1. For the reminder, I need to use the `load_skill` tool for \"reminders\". Then I'll need to call a tool to save the reminder (likely `create_reminder`) and another to check the list (likely `get_reminders` or similar). I will start by loading the skill.\n2. For the weather forecast, I need to use the `load_skill` tool for \"weather\". Then I will call a tool to get the forecast (likely `get_forecast`).\n3. I will load both skills first.",
+      "tool_calls": [
+        {
+          "id": "call_vrngzhtr",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        },
+        {
+          "id": "call_0ueg83sz",
+          "function": {
+            "index": 1,
+            "name": "load_skill",
+            "arguments": {
+              "name": "weather"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 8.4
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"weather\", \"description\": \"weather + forecast\", \"tools_now_available\": [\"get_weather\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "I now have the `remember`, `list_reminders`, and `get_weather` tools available.\n1. I'll create a recurring reminder for rent on the 1st of each month.\n2. I'll check the list for this week using `list_reminders` with `filter: \"this_week\"`.\n3. I'll get the weather forecast using `get_weather`.\n\nFor the reminder:\n- title: \"Pay rent\"\n- recurrence: \"monthly\"\n- I don't need to specify a due date since it's recurring monthly, but the prompt implies the 1st. I can leave `due_date` blank or specify the next 1st (May 1st, 2026). I'll leave it blank as the recurrence config handles the logic, or just set it to May 1st. Let's set `due_date` to \"2026-05-01\" to be precise about the start.\n- Actually, the prompt says \"on the 1st of each month\". So `recurrence: \"monthly\"` is perfect. I'll set the first due date to May 1st, 2026.\n\nFor the list: `list_reminders` with `filter: \"this_week\"`.\nFor the weather: `get_weather` with default location (Oakland, CA) or maybe ask for location? The prompt doesn't specify a location for weather, so I'll use the default.\n\nLet's make the calls.",
+      "tool_calls": [
+        {
+          "id": "call_bz2na3ui",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "due_date": "2026-05-01",
+              "recurrence": "monthly"
+            }
+          }
+        },
+        {
+          "id": "call_jy0hcrub",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        },
+        {
+          "id": "call_gbriiwvc",
+          "function": {
+            "index": 2,
+            "name": "get_weather",
+            "arguments": {}
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 16.77
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_781567\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"location\": \"Oakland, CA\", \"current\": {\"temp_f\": 59, \"condition\": \"Overcast\", \"wind_mph\": 7}, \"daily\": [{\"date\": \"2026-04-22\", \"condition\": \"Overcast\", \"high_f\": 62, \"low_f\": 50, \"precip_chance_pct\": 20}, {\"date\": \"2026-04-23\", \"condition\": \"Rain\", \"high_f\": 58, \"low_f\": 48, \"precip_chance_pct\": 80}, {\"date\": \"2026-04-24\", \"condition\": \"Partly cloudy\", \"high_f\": 64, \"low_f\": 49, \"precip_chance_pct\": 10}, {\"date\": \"2026-04-25\", \"condition\": \"Clear\", \"high_f\": 70, \"low_f\": 51, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-26\", \"condition\": \"Clear\", \"high_f\": 72, \"low_f\": 52, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-27\", \"condition\": \"Partly cloudy\", \"high_f\": 68, \"low_f\": 51, \"precip_chance_pct\": 15}, {\"date\": \"2026-04-28\", \"condition\": \"Clear\", \"high_f\": 71, \"low_f\": 52, \"precip_chance_pct\": 5}], \"alerts\": [\"Heavy rain: 2026-04-23 \\u2014 0.8in expected\"], \"changes\": []}",
+      "name": "get_weather",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "Here is the information you requested:\n\n**Reminder Created**\n*   **Pay rent**: Starts May 1st, 2026 (repeats monthly).\n\n**Reminders for This Week**\n*   None on your list.\n\n**Weather Forecast (Oakland, CA)**\n*   **Currently**: 59\u00b0F, Overcast.\n*   **Today (Thu)**: High 62\u00b0F, Low 50\u00b0F, 20% chance of rain.\n*   **Friday**: High 58\u00b0F, Heavy rain expected (0.8 inches).\n*   **Weekend**: Clearing up with highs around 70\u00b0F.",
+      "thinking": "I have all the information now.\n1. The reminder \"Pay rent\" has been saved for the 1st of each month, starting May 1st, 2026.\n2. There are no reminders on the list for this week.\n3. The weather in Oakland, CA is overcast and 59\u00b0F currently. Today's high is 62\u00b0F with a 20% chance of rain. Tomorrow (April 23) there is heavy rain expected with a high of 58\u00b0F. The rest of the week clears up.\n\nI will summarize these results concisely.",
+      "_round": 2,
+      "_round_wall_s": 12.87
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "scenario_id": "single_tool_save",
+  "scenario_prompt": "Remind me to water the plants on Friday.",
+  "rep": 1,
+  "config": "keep",
+  "prompt": "Remind me to water the plants on Friday.",
+  "rounds_used": 3,
+  "wall_s": 23.11,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    661,
+    655,
+    119
+  ],
+  "final_text": "I've set a reminder to water the plants on Friday, April 24th.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:53 AM PDT (ISO: 2026-04-22T10:53:26-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to water the plants on Friday."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set a reminder for a specific event (\"water the plants\") on a specific day (\"Friday\").\nI need to use the `reminders` skill to accomplish this.\nFirst, I will load the `reminders` skill.\nThen, I will check the available tools for setting a reminder.\nSince the user specified \"Friday\", I need to interpret this relative to the current date.\nCurrent date: Wednesday, April 22, 2026.\nNext Friday is April 24, 2026.\nI will formulate the reminder tool call.\n\n1.  **Load skill:** `reminders`\n2.  **Tool Call:** likely something like `add_reminder` with details: \"water the plants\", time: \"Friday\" (or specific date).\n\nLet's start by loading the skill.",
+      "tool_calls": [
+        {
+          "id": "call_75ecvy5u",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 8.24
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "I have loaded the `reminders` skill. Now I can see the tools `remember` and `list_reminders`.\nThe user wants to be reminded to \"water the plants\" on Friday.\nCurrent date is Wednesday, April 22, 2026.\n\"Friday\" implies the upcoming Friday, which is April 24, 2026.\nI will use the `remember` tool to create the reminder.\n\nParameters for `remember`:\n- title: \"water the plants\"\n- due_date: \"2026-04-24\"\n- time: The user didn't specify a time, just the day. The prompt says \"Remind me to water the plants on Friday.\" Usually, a specific time isn't provided in this phrasing, or it's just a date. I will provide just the date `2026-04-24`.\n\nLet's make the call.",
+      "tool_calls": [
+        {
+          "id": "call_vkpad392",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "water the plants",
+              "due_date": "2026-04-24"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 10.84
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_295697\", \"title\": \"water the plants\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-04-24\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder to water the plants on Friday, April 24th.",
+      "thinking": "The reminder was successfully created with ID `r_295697` for Friday, April 24, 2026. I should confirm this to the user.",
+      "_round": 2,
+      "_round_wall_s": 4.02
+    }
+  ]
+}

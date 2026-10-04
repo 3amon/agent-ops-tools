@@ -1,0 +1,120 @@
+{
+  "cells": {
+    "multi_tool_chain/keep": {
+      "n": 15,
+      "rounds_mean": 3.466666666666667,
+      "rounds_min": 3,
+      "rounds_max": 4,
+      "wall_mean_s": 29.646,
+      "wall_min_s": 20.94,
+      "wall_max_s": 41.02,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "conditional_act_on_tool_output/keep": {
+      "n": 15,
+      "rounds_mean": 4.333333333333333,
+      "rounds_min": 2,
+      "rounds_max": 5,
+      "wall_mean_s": 34.45066666666667,
+      "wall_min_s": 28.22,
+      "wall_max_s": 55.05,
+      "distinct_tool_seqs": 4,
+      "most_common_seq": [
+        "load_skill",
+        "get_weather",
+        "load_skill",
+        "remember"
+      ]
+    },
+    "multi_tool_chain/strip": {
+      "n": 14,
+      "rounds_mean": 3.9285714285714284,
+      "rounds_min": 3,
+      "rounds_max": 4,
+      "wall_mean_s": 44.19785714285714,
+      "wall_min_s": 21.21,
+      "wall_max_s": 189.06,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "three_tool_mixed_skills/keep": {
+      "n": 12,
+      "rounds_mean": 3.0,
+      "rounds_min": 3,
+      "rounds_max": 3,
+      "wall_mean_s": 48.271666666666654,
+      "wall_min_s": 34.25,
+      "wall_max_s": 106.74,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "remember",
+        "list_reminders",
+        "get_weather"
+      ]
+    },
+    "three_tool_mixed_skills/strip": {
+      "n": 15,
+      "rounds_mean": 3.1333333333333333,
+      "rounds_min": 3,
+      "rounds_max": 4,
+      "wall_mean_s": 50.577333333333335,
+      "wall_min_s": 28.84,
+      "wall_max_s": 95.9,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "remember",
+        "list_reminders",
+        "get_weather"
+      ]
+    },
+    "conditional_act_on_tool_output/strip": {
+      "n": 15,
+      "rounds_mean": 4.2,
+      "rounds_min": 1,
+      "rounds_max": 5,
+      "wall_mean_s": 37.42666666666666,
+      "wall_min_s": 24.94,
+      "wall_max_s": 61.51,
+      "distinct_tool_seqs": 5,
+      "most_common_seq": [
+        "load_skill",
+        "get_weather",
+        "load_skill",
+        "remember"
+      ]
+    }
+  },
+  "scenarios": {
+    "multi_tool_chain": {
+      "rounds_delta_mean": 0.46,
+      "wall_delta_mean_s": 14.55,
+      "strip_distinct_seqs": 1,
+      "keep_distinct_seqs": 1
+    },
+    "three_tool_mixed_skills": {
+      "rounds_delta_mean": 0.13,
+      "wall_delta_mean_s": 2.31,
+      "strip_distinct_seqs": 1,
+      "keep_distinct_seqs": 1
+    },
+    "conditional_act_on_tool_output": {
+      "rounds_delta_mean": -0.13,
+      "wall_delta_mean_s": 2.98,
+      "strip_distinct_seqs": 5,
+      "keep_distinct_seqs": 4
+    }
+  }
+}

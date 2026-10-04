@@ -1,0 +1,117 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 2,
+  "config": "keep",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 29.8,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    747,
+    473,
+    187,
+    467
+  ],
+  "final_text": "I've set a reminder to pay rent on the 1st of every month.\n\nThere are currently no other reminders or tasks on your list for this week.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:55 AM PDT (ISO: 2026-04-22T10:55:47-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set up a recurring reminder for rent on the 1st of each month.\nThey also want to see their schedule or task list for the current week.\n\n1.  **Load the `reminders` skill**: To add the new reminder and view the list.\n2.  **Add the recurring reminder**: Use `add_recurring_event` (or equivalent function depending on the skill's specific interface, likely `add_recurring_event` or similar) to schedule rent on the 1st of each month.\n3.  **Retrieve the weekly list**: Use a function like `list_events` or `get_todos` for the current week.\n4.  **Present the information**: Combine the confirmation of the new reminder with the details of the upcoming week.\n\nFirst, I'll load the `reminders` skill to get access to the necessary tools.",
+      "tool_calls": [
+        {
+          "id": "call_wqt59ucu",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 8.38
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "I have loaded the `reminders` skill.\nNow I need to:\n1.  Create the recurring reminder for rent.\n    *   `remember` tool is available.\n    *   `title`: \"Pay rent\"\n    *   `recurrence`: \"monthly\"\n    *   I need to figure out how to specify the day of the month. The `recurrence_config` seems like the right place. I'll set `day` to 1.\n2.  List the reminders for the current week.\n    *   `list_reminders` tool is available.\n    *   `filter`: \"this_week\"\n\nLet's do both calls.",
+      "tool_calls": [
+        {
+          "id": "call_ge4hqh03",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "recurrence": "monthly",
+              "recurrence_config": {
+                "day": 1
+              }
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 9.27
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_83a95d\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": null, \"recurrence\": \"monthly\", \"recurrence_config\": {\"day\": 1}, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The recurring reminder \"Pay rent\" has been created successfully with an ID of `r_83a95d`.\nNow I need to list the reminders for \"this_week\" to answer the second part of the user's request.",
+      "tool_calls": [
+        {
+          "id": "call_pl5t9y1a",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 4.59
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder to pay rent on the 1st of every month.\n\nThere are currently no other reminders or tasks on your list for this week.",
+      "thinking": "The user asked to be reminded to pay rent on the 1st of each month, and then to see what is on their list for this week.\n\n1.  **Rent Reminder**: Created successfully. It is a monthly recurring reminder set for the 1st of each month.\n2.  **This Week's List**: The `list_reminders` call returned 0 items for the \"this_week\" filter.\n\nI should report that the rent reminder is set and that there are no other tasks/schedule items for the current week (April 18-24, 2026).",
+      "_round": 3,
+      "_round_wall_s": 7.56
+    }
+  ]
+}

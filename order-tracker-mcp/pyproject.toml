@@ -1,0 +1,19 @@
+[project]
+name = "order-tracker-mcp"
+version = "0.2.0"
+description = "MCP server for order status: CSV export as base truth plus read-only, sender-fenced Gmail updates"
+authors = [{ name = "Eamon White", email = "white.eamon@gmail.com" }]
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = [
+    # written against the 1.x SDK (FastMCP); 2.x renamed it
+    "mcp[cli]>=1.2.0,<2",
+    "google-api-python-client>=2.100.0",
+    "google-auth-oauthlib>=1.2.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false

@@ -1,0 +1,7 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 2,
+  "error": "timeout: timed out",
+  "model": "qwen3.6:27b"
+}

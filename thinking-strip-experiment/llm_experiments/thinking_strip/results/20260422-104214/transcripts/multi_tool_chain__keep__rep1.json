@@ -1,0 +1,105 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 1,
+  "config": "keep",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 3,
+  "wall_s": 20.29,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    338,
+    458,
+    216
+  ],
+  "final_text": "I've set a recurring reminder to pay rent on the 1st of each month.\n\nAs for your list this week, you have nothing on it.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:47 AM PDT (ISO: 2026-04-22T10:47:28-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. Set a recurring reminder to pay rent on the 1st of each month.\n2. See their list for this week.\n\nTo do this, I need to use the `reminders` skill.\nFirst, I will load the `reminders` skill.\nThen, I will likely need a tool to add the reminder and a tool to list the reminders.\n\nLet's start by loading the skill.",
+      "tool_calls": [
+        {
+          "id": "call_tnwhusis",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 5.4
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "Now I have the `remember` and `list_reminders` tools available.\nFirst, I need to create the recurring reminder.\n- Title: \"Pay rent\"\n- Due date: The user said \"on the 1st of each month\".\n- Current date is 2026-04-22.\n- The \"1st of each month\" usually implies the upcoming occurrence. Since today is April 22, the next 1st is May 1st. So due_date = \"2026-05-01\".\n- Recurrence: \"monthly\".\n\nThen I need to list reminders for \"this_week\".\n\nI will make both calls.",
+      "tool_calls": [
+        {
+          "id": "call_b043pop2",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "due_date": "2026-05-01",
+              "recurrence": "monthly"
+            }
+          }
+        },
+        {
+          "id": "call_j3t8pkyb",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 10.16
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_adb866\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a recurring reminder to pay rent on the 1st of each month.\n\nAs for your list this week, you have nothing on it.",
+      "thinking": "The reminder \"Pay rent\" was created successfully.\nThe list of reminders for this week is empty (count 0, items []).\n\nI will inform the user that the reminder is set and that they have nothing on their list this week.",
+      "_round": 2,
+      "_round_wall_s": 4.74
+    }
+  ]
+}

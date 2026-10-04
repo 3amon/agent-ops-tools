@@ -1,0 +1,118 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 3,
+  "config": "strip",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 67.99,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    5261,
+    1039,
+    203,
+    258
+  ],
+  "final_text": "I've set a recurring reminder for you to pay rent on the 1st of each month. \n\nThere are currently no other reminders scheduled for this week.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 11:54 AM PDT (ISO: 2026-04-22T11:54:32-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1.  Remind them to pay rent on the 1st of each month.\n2.  Tell them what is on their list this week.\n\nI need to use the `reminders` skill for both tasks.\nFirst, I will load the `reminders` skill.\nThen I will add a recurring reminder for \"pay rent\" on the 1st of each month.\nFinally, I will get the list of reminders for this week.\n\nI should make the `load_skill` call first.\nThen I can probably combine the logic, but the instructions say \"After loading, the tools appear in your tool list and you call them normally.\" implying a multi-turn interaction might be needed if I don't have the tools immediately, but here I have the definition. I will issue the load_skill call now.\n\nActually, looking at the system prompt, it says \"Skills are loaded for the current turn only.\" This suggests I should load the skill and then call the tools in the same response if possible, or if the tool list refreshes instantly. However, standard behavior for these agents usually requires the `load_skill` call, then the model processes that, sees the new tools, and then calls them. But often in this environment, I can call the load_skill and then immediately call the tools if the context updates fast enough, or more likely, I just call load_skill and wait for the system to acknowledge, but usually, I can chain calls if I'm confident.\n\nLet's look at the constraints: \"Call this FIRST when the user wants functionality not in your always-available tools. After loading, the tools appear in your tool list and you call them normally.\"\n\nI will call `load_skill` for `reminders`. Then I will attempt to use the tools. If the interface allows, I'll do it in one go. If not, I'll do it in two. Given the instruction \"Skills are loaded for the current turn only,\" it strongly implies I can use them in the *current* turn (the one where I loaded it).\n\nSo I will:\n1. Call `load_skill` with `name=\"reminders\"`.\n2. Call the tool to add the recurring reminder (likely `add_reminder` or similar, though the specific tool names aren't listed in the `load_skill` description, I have to infer them or they will be available. Wait, the prompt doesn't list the specific tools for `reminders` inside the `load_skill` description, it just says \"reminders: manage todos, ideas, recurring bills / appointments.\").\n\nActually, the prompt says \"After loading, the tools appear in your tool list\". Since I am an AI and I don't see a \"tool list\" update until I actually emit the tool call and the environment responds, this is a bit tricky.\n\nHowever, usually, with the `load_skill` pattern:\n1. Model calls `load_skill`.\n2. Environment responds showing the new tools.\n3. Model calls the new tools.\n\nBut sometimes, if the model knows the tools, it might call them. Let's stick to the safest path: Call `load_skill`.\n\nWait, if I just call `load_skill`, I haven't answered the second part of the user's request yet. I can't \"tell them what's on my list\" without first getting the list.\n\nLet's re-read carefully: \"Skills are loaded for the current turn only.\" This means if I call `load_skill` now, the tools are available *in this response context* effectively, or rather, I am expected to use them in the same turn? No, that's technically impossible in a standard function calling loop unless the model generates the tool calls and the system executes them and returns the results to the model in the same turn. But standard API behavior is Turn-based.\n\nHowever, often prompts like this are simplified. The instruction \"After loading, the tools appear in your tool list\" is usually a description of what happens *conceptually* or in the *next* step.\n\nLet's look at the \"Available skills\" section. It lists `reminders`.\nI will load the `reminders` skill. I will not call the specific reminder tools yet because I don't know their exact names from the description (it just says \"manage todos...\"). I need to see the tools that appear.\n\nWait, looking at the provided function definitions, I only have `load_skill` available right now. I don't have `add_reminder` or `get_reminders` yet.\n\nSo step 1 is definitely `load_skill`.\n\n*Self-correction*: Can I assume the tool names? The description says \"reminders: manage todos...\". Usually, the tool names are standardized, e.g., `create_reminder`, `list_reminders`. But since they aren't in my current tool list, I must rely on the environment to provide them.\n\nSo, I will call `load_skill`.\n\n*Update*: If I call `load_skill`, the system will likely return the available tools for `reminders`. Then I can call them.\n\nBut wait, I can't \"tell the user what is on my list\" until I get the results of the list query. I can't do that in the `load_skill` response.\n\nTherefore, I will call `load_skill`. I will *not* try to call the other tools yet because I don't have them defined in my `tool_definitions`.\n\nWait, if I just call `load_skill`, the user gets no text response, just the tool call. I should probably provide a text response explaining I'm checking the list, but the system instructions say \"Response concisely... Use tools when they help...\".\n\nLet's try to load the skill.\n\nOne specific detail: \"Tell me what's on my list *this week*\". This implies a recurring reminder setup and a read operation.\n\nI will load the skill now.",
+      "tool_calls": [
+        {
+          "id": "call_lbmwmzk0",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 43.84
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants me to:\n1. Remind them to pay rent on the 1st of each month\n2. Tell them what's on their list this week\n\nFor the first part, I need to create a recurring reminder. I'll use the `remember` tool with:\n- title: something like \"Pay rent\"\n- recurrence: \"monthly\" (since they said \"1st of each month\")\n- due_date: I should set this to the 1st of the next month. Since today is April 22, 2026, the next 1st would be May 1, 2026. But since it's recurring, I might just set it to the current month's 1st or next month's 1st. Let me set it to May 1, 2026 (2026-05-01) as the first occurrence.\n- recurrence_config: might need to specify day of month or day of week. Since they said \"1st of each month\", I should use recurrence_config to specify day 1.\n\nActually, looking at the parameters, recurrence can be \"monthly\" and recurrence_config can specify the day. Let me try:\n- recurrence: \"monthly\"\n- recurrence_config: {\"day\": 1} or similar\n\nFor the second part, I need to list reminders with filter \"this_week\".\n\nLet me make both calls.",
+      "tool_calls": [
+        {
+          "id": "call_m1xsc55q",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "recurrence_config": {
+                "day": 1
+              }
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 14.88
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_94fcf9\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": {\"day\": 1}, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user asked for two things:\n1. Remind them to pay rent on the 1st of each month. I've done that.\n2. Tell them what's on their list this week. I need to call list_reminders with the \"this_week\" filter.",
+      "tool_calls": [
+        {
+          "id": "call_46f37qey",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 4.34
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a recurring reminder for you to pay rent on the 1st of each month. \n\nThere are currently no other reminders scheduled for this week.",
+      "thinking": "The user asked two things:\n1. Remind them to pay rent on the 1st of each month - done.\n2. Tell them what's on their list this week - the list_reminders call returned 0 items for this_week.\n\nI should report that there are no reminders scheduled for this week.",
+      "_round": 3,
+      "_round_wall_s": 4.93
+    }
+  ]
+}

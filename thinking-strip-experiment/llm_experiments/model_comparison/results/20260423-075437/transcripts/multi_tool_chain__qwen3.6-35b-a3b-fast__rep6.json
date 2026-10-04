@@ -1,0 +1,122 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 6,
+  "model": "qwen3.6:35b-a3b-fast",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 34.54,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    661,
+    1269,
+    112,
+    306
+  ],
+  "total_thinking_chars": 2348,
+  "eval_tokens": 847,
+  "prompt_tokens": 3701,
+  "tokens_per_second": 30.3,
+  "final_text": "I've set a recurring reminder to pay rent on the 1st of every month.\n\nHere is your list for this week (April 23 - April 29):\n* No upcoming reminders.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Thursday, April 23, 2026 at 08:53 AM PDT (ISO: 2026-04-23T08:53:47-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. Set a recurring reminder to pay rent on the 1st of each month.\n2. See what's on their list for this week.\n\nFirst, I need to load the `reminders` skill to access the tools for creating and listing reminders.\nThen, I will create the recurring reminder for rent.\nFinally, I will list the user's current reminders to show what is on their list.\n\nI need to call `load_skill` with name \"reminders\".\nAfter loading, I'll look for a tool like `create_reminder` or similar to set the monthly rent payment.\nThen I'll look for a tool like `list_reminders` or similar to answer the second part of the request.\n\nLet's start by loading the skill.",
+      "tool_calls": [
+        {
+          "id": "call_0239dt6b",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 7.8
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set up a recurring reminder to pay rent on the 1st of each month, and then see what's on their list for this week. I need to use the `remember` function to create a recurring reminder for the 1st of each month. Then I will use `list_reminders` with the `this_week` filter to show them the current list.\n\nFor the reminder:\n- Title: \"Pay Rent\"\n- Recurrence: \"monthly\"\n- Due date: Since it's for the 1st of each month, I can set the initial due date to the next 1st of the month. The current date is April 23, 2026. So the next 1st is May 1, 2026. So `due_date` is \"2026-05-01\".\n- Recurrence config: needs to specify day of month? The prompt just says \"1st of each month\". Usually recurrence_config is needed for monthly specifics if the API requires it, but the prompt doesn't give the exact structure. I'll stick to `recurrence: \"monthly\"`. Let me check if I need `recurrence_config`. The `remember` tool definition has `recurrence_config` as an object. Often monthly needs `{ \"day_of_month\": 1 }`. I'll include it to be safe.\n\nLet's do the reminder first.\nThen call list_reminders with `filter: \"this_week\"`.\n\nWait, the user said \"on the 1st of each month\".\nCurrent date: 2026-04-23.\nNext 1st: 2026-05-01.\n\nLet's call `remember` then `list_reminders`.",
+      "tool_calls": [
+        {
+          "id": "call_ej1zbdyq",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay Rent",
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "recurrence_config": {
+                "day_of_month": 1
+              }
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 17.45
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_6e6e14\", \"title\": \"Pay Rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": {\"day_of_month\": 1}, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to know what's on their list for this week. I should call list_reminders with filter \"this_week\".",
+      "tool_calls": [
+        {
+          "id": "call_iwevoxje",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 3.33
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-23\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a recurring reminder to pay rent on the 1st of every month.\n\nHere is your list for this week (April 23 - April 29):\n* No upcoming reminders.",
+      "thinking": "The user asked for two things:\n1. Remind me to pay rent on the 1st of each month.\n2. Tell me what's on my list this week.\n\nI successfully created the recurring reminder for rent, due on the 1st of each month.\n\nI listed the reminders for \"this_week\" and got 0 items.\n\nI should report both results concisely.",
+      "_round": 3,
+      "_round_wall_s": 5.96
+    }
+  ]
+}

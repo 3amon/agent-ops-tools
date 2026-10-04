@@ -1,0 +1,59 @@
+{
+  "scenario_id": "single_tool_save",
+  "scenario_prompt": "Remind me to water the plants on Friday.",
+  "rep": 4,
+  "config": "keep",
+  "prompt": "Remind me to water the plants on Friday.",
+  "rounds_used": 2,
+  "wall_s": 28.35,
+  "tool_call_sequence": [
+    "load_skill"
+  ],
+  "thinking_chars_per_round": [
+    1086,
+    1515
+  ],
+  "final_text": "What time on Friday would you like the reminder?",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:55 AM PDT (ISO: 2026-04-22T10:55:19-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to water the plants on Friday."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded to water the plants on Friday. I need to check the available tools to see if there's a \"reminders\" skill. The `load_skill` tool description confirms that \"reminders\" is an available skill for \"manage todos, ideas, recurring bills / appointments.\" I should load the \"reminders\" skill to proceed. Then I can call the appropriate function to set the reminder for Friday. However, the user said \"on Friday\" without specifying a time. I should probably ask for a specific time or use a default time (like 9:00 AM or 10:00 AM) if appropriate, but first I need to load the skill.\n\nWait, I should look at the available tools in the system prompt. The `load_skill` function is available. I will call `load_skill` with `name=\"reminders\"`.\n\nAfter loading, I will need to add a reminder. Usually, reminder tools take a title, time/date, and sometimes other details. Since the user said \"on Friday\", I need to determine the date. Current date is April 22, 2026 (Wednesday). So Friday is April 24, 2026. I will probably need a specific time.\n\nLet's load the skill first.",
+      "tool_calls": [
+        {
+          "id": "call_10zi0rs8",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 11.31
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "What time on Friday would you like the reminder?",
+      "thinking": "I loaded the \"reminders\" skill. Now I can use the `remember` tool. The user wants to be reminded to water the plants on Friday. Today is April 22, 2026, so Friday is April 24, 2026. The user didn't specify a time, so I'll ask for a preferred time or just save it for the day. Since the prompt implies I should just use the tools when helpful, I'll ask for the time or just set it for a generic time if the tool allows. Actually, looking at the `remember` parameters, I have `title`, `notes`, `type`, `urgency`, `due_date`, `recurrence`, `recurrence_config`. I can set `title` to \"Water the plants\" and `due_date` to \"2026-04-24\". I don't see a `time` parameter, so maybe it's all-day or I can put it in `notes`. I'll ask the user what time they prefer.\n\nActually, I can just save the reminder with the date and ask if they want a specific time or if the date is sufficient. Or I can assume a time and mention it. Let's ask the user for a time to be precise.\n\nWait, the prompt says \"Respond concisely.\" and \"Use tools when they help\". If I have a tool that handles the request, I should use it. The `remember` tool takes `due_date`. I will set the date and ask about the time, or just save it and mention the date.\n\nLet's save it for Friday, April 24, 2026, and ask for a time to refine it, or just save it as an all-day reminder. I'll save it and mention the date.\n\nActually, usually these agents assume a time if not provided or ask. I'll ask: \"What time on Friday would you like me to remind you?\"\n\nLet's do that.",
+      "_round": 1,
+      "_round_wall_s": 17.04
+    }
+  ]
+}

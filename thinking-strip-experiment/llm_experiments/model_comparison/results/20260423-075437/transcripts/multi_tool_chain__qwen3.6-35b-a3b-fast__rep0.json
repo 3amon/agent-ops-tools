@@ -1,0 +1,122 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 0,
+  "model": "qwen3.6:35b-a3b-fast",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 34.37,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    546,
+    1523,
+    299,
+    93
+  ],
+  "total_thinking_chars": 2461,
+  "eval_tokens": 847,
+  "prompt_tokens": 3693,
+  "tokens_per_second": 30.3,
+  "final_text": "I've set a monthly reminder for you to pay rent on the 1st.\n\nThere are currently no other reminders scheduled for this week.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Thursday, April 23, 2026 at 08:43 AM PDT (ISO: 2026-04-23T08:43:48-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1.  To be reminded to pay rent on the 1st of each month.\n2.  To see what is on their list this week.\n\nFor the first task, I need to use the `reminders` skill to add a recurring reminder for rent.\nFor the second task, I need to use the `reminders` skill to get the list of reminders, filtering for this week if possible, or just getting the current list.\n\nFirst, I will load the `reminders` skill.\nThen I will add the rent reminder.\nThen I will fetch the list of reminders.\n\nLet's start by loading the `reminders` skill.",
+      "tool_calls": [
+        {
+          "id": "call_yg40lh4h",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 7.08
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. Remind them to pay rent on the 1st of each month.\n2. Show what's on their list this week.\n\nFor the first request, I need to use the `remember` function to create a reminder with recurrence set to 'monthly' and recurrence_config for the 1st day of the month. The title should be something like \"Pay rent\".\n\nFor the second request, I need to use the `list_reminders` function with filter 'this_week' to see what's on their list this week.\n\nLet me check the parameters for `remember`:\n- title (required): \"Pay rent\"\n- recurrence (optional): \"monthly\"\n- recurrence_config (optional): Need to specify day of month? The description says \"resolve natural-language dates to ISO YYYY-MM-DD before calling\" for due_date, but recurrence is an enum. The type says recurrence_config is an object. I'll assume it might need {day: 1} or similar, but the prompt doesn't specify format. I'll stick to the simple enum if possible, or omit recurrence_config if not strictly required by the enum value. Actually, usually monthly recurrence needs a day. I'll try adding it as {day: 1}.\n- due_date (optional): Since it's recurring, I should probably set an initial due date. The 1st of the current month (April) has passed (it's April 23). So I should set it to the 1st of next month, May 2026. So due_date: \"2026-05-01\".\n\nWait, the user said \"on the 1st of each month\".\nI will set:\ntitle: \"Pay rent\"\ndue_date: \"2026-05-01\" (next occurrence)\nrecurrence: \"monthly\"\nrecurrence_config: {day: 1}\n\nLet me make the calls.",
+      "tool_calls": [
+        {
+          "id": "call_rfb8jrsn",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "recurrence_config": {
+                "day": 1
+              }
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 18.59
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_9938a6\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": {\"day\": 1}, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. A reminder to pay rent on the 1st of each month.\n2. What's on their list this week.\n\nI've just created the monthly rent reminder. Now I need to list the reminders with the \"this_week\" filter.\nCurrent time is 2026-04-23.\nI'll call list_reminders with filter \"this_week\".",
+      "tool_calls": [
+        {
+          "id": "call_irevy809",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 5.33
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-23\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a monthly reminder for you to pay rent on the 1st.\n\nThere are currently no other reminders scheduled for this week.",
+      "thinking": "The reminder was created, but the list shows 0 items for this week. I should inform the user.",
+      "_round": 3,
+      "_round_wall_s": 3.38
+    }
+  ]
+}

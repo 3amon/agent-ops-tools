@@ -1,0 +1,145 @@
+{
+  "scenario_id": "three_tool_mixed_skills",
+  "scenario_prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rep": 6,
+  "model": "qwen3.6:27b",
+  "prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rounds_used": 3,
+  "wall_s": 122.51,
+  "tool_call_sequence": [
+    "load_skill",
+    "load_skill",
+    "remember",
+    "list_reminders",
+    "get_weather"
+  ],
+  "thinking_chars_per_round": [
+    463,
+    514,
+    501
+  ],
+  "total_thinking_chars": 1478,
+  "eval_tokens": 800,
+  "prompt_tokens": 3324,
+  "tokens_per_second": 9.4,
+  "final_text": "Done. Here's the summary:\n\n**Reminder Saved**\n* Rent payment recurring on the 1st of each month, set to high urgency.\n\n**This Week's List**\n* Nothing else scheduled for this week.\n\n**Weather Forecast (Oakland, CA)**\n* **Now:** 59\u00b0F, Overcast, 7 mph winds.\n* **Today (Thu):** Rainy, High 58\u00b0F / Low 48\u00b0F (80% chance of rain). *Alert: Heavy rain expected.*\n* **Fri:** Partly cloudy, High 64\u00b0F / Low 49\u00b0F.\n* **Sat-Sun:** Clear and warming up (Highs in the low 70s).\n* **Mon:** Partly cloudy, High 68\u00b0F.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Thursday, April 23, 2026 at 08:04 AM PDT (ISO: 2026-04-23T08:04:12-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user is asking for three things:\n1. Save a reminder to pay rent on the 1st of each month.\n2. Tell them what's on their list this week.\n3. Tell them the weather forecast.\n\nI need to:\n1. Load the `reminders` skill to manage todos/reminders.\n2. Load the `weather` skill for the forecast.\n3. After loading, call the appropriate tools for setting the reminder, getting the weekly list, and getting the weather.\n\nI will make the tool calls to load the skills first.",
+      "tool_calls": [
+        {
+          "id": "call_rzrilz27",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        },
+        {
+          "id": "call_t0xisqtx",
+          "function": {
+            "index": 1,
+            "name": "load_skill",
+            "arguments": {
+              "name": "weather"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 32.39
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"weather\", \"description\": \"weather + forecast\", \"tools_now_available\": [\"get_weather\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants three things:\n1. Save a recurring reminder to pay rent on the 1st of each month.\n2. List reminders for this week.\n3. Get the weather forecast.\n\nI'll call the tools in parallel.\nFor the reminder:\nTitle: \"Pay rent\"\nRecurrence: \"monthly\"\nRecurrence config: usually 1st of the month. I will just set recurrence to \"monthly\".\nDue date: The 1st of the next month (May 1, 2026 -> 2026-05-01).\n\nFor the list: filter \"this_week\"\nFor weather: default location (Oakland, CA), maybe 5 days.\n\nLet's do the calls.",
+      "tool_calls": [
+        {
+          "id": "call_yeleralq",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "type": "bill",
+              "recurrence": "monthly",
+              "title": "Pay rent",
+              "due_date": "2026-05-01",
+              "urgency": "high"
+            }
+          }
+        },
+        {
+          "id": "call_gg6t38g1",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        },
+        {
+          "id": "call_9mv2fdg1",
+          "function": {
+            "index": 2,
+            "name": "get_weather",
+            "arguments": {
+              "days": 5
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 43.68
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_37676f\", \"title\": \"Pay rent\", \"type\": \"bill\", \"urgency\": \"high\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-23\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"location\": \"Oakland, CA\", \"current\": {\"temp_f\": 59, \"condition\": \"Overcast\", \"wind_mph\": 7}, \"daily\": [{\"date\": \"2026-04-22\", \"condition\": \"Overcast\", \"high_f\": 62, \"low_f\": 50, \"precip_chance_pct\": 20}, {\"date\": \"2026-04-23\", \"condition\": \"Rain\", \"high_f\": 58, \"low_f\": 48, \"precip_chance_pct\": 80}, {\"date\": \"2026-04-24\", \"condition\": \"Partly cloudy\", \"high_f\": 64, \"low_f\": 49, \"precip_chance_pct\": 10}, {\"date\": \"2026-04-25\", \"condition\": \"Clear\", \"high_f\": 70, \"low_f\": 51, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-26\", \"condition\": \"Clear\", \"high_f\": 72, \"low_f\": 52, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-27\", \"condition\": \"Partly cloudy\", \"high_f\": 68, \"low_f\": 51, \"precip_chance_pct\": 15}, {\"date\": \"2026-04-28\", \"condition\": \"Clear\", \"high_f\": 71, \"low_f\": 52, \"precip_chance_pct\": 5}], \"alerts\": [\"Heavy rain: 2026-04-23 \\u2014 0.8in expected\"], \"changes\": []}",
+      "name": "get_weather",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "Done. Here's the summary:\n\n**Reminder Saved**\n* Rent payment recurring on the 1st of each month, set to high urgency.\n\n**This Week's List**\n* Nothing else scheduled for this week.\n\n**Weather Forecast (Oakland, CA)**\n* **Now:** 59\u00b0F, Overcast, 7 mph winds.\n* **Today (Thu):** Rainy, High 58\u00b0F / Low 48\u00b0F (80% chance of rain). *Alert: Heavy rain expected.*\n* **Fri:** Partly cloudy, High 64\u00b0F / Low 49\u00b0F.\n* **Sat-Sun:** Clear and warming up (Highs in the low 70s).\n* **Mon:** Partly cloudy, High 68\u00b0F.",
+      "thinking": "Every turn now I must list available tools I can call after loading skills.\nAvailable tools:\n- load_skill(name: 'weather' | 'news' | 'reminders')\n- get_weather(location: string, days: number)\n- remember(title: string, notes?: string, type?: string, urgency?: 'low' | 'medium' | 'high', due_date?: string, recurrence?: 'none' | 'daily' | 'weekly' | 'monthly' | 'yearly', recurrence_config?: object)\n- list_reminders(filter?: 'all' | 'open' | 'overdue' | 'today' | 'this_week' | 'upcoming' | 'archived')",
+      "_round": 2,
+      "_round_wall_s": 46.44
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "cdp_url": "http://127.0.0.1:9222/json",
+  "log": "~/.claude/browser-guard.log",
+  "sites": [
+    {
+      "domain": "bank.example",
+      "note": "banking: never open it",
+      "navigate": false
+    },
+    {
+      "domain": "shop.example",
+      "note": "shopping: product and search pages only",
+      "deny_path_regex": "^/(cart|checkout|buy|orders?|account|payment)"
+    },
+    {
+      "domain": "social.example",
+      "note": "social: public listings only, no messages, settings or posting",
+      "allow_path_prefixes": ["/marketplace"]
+    }
+  ]
+}

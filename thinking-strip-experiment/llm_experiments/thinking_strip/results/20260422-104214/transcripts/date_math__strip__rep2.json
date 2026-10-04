@@ -1,0 +1,87 @@
+{
+  "scenario_id": "date_math",
+  "scenario_prompt": "Remind me to check my car insurance in 10 days.",
+  "rep": 2,
+  "config": "strip",
+  "prompt": "Remind me to check my car insurance in 10 days.",
+  "rounds_used": 3,
+  "wall_s": 25.73,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    1097,
+    674,
+    204
+  ],
+  "final_text": "I've set a reminder to check your car insurance on Saturday, May 2nd.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:43 AM PDT (ISO: 2026-04-22T10:43:48-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to check my car insurance in 10 days."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set a reminder. I need to use the `reminders` skill.\nI will call `load_skill` with name \"reminders\".\nThen I can presumably use the reminder tools, but the instructions say \"After loading, the skill's tools appear in your tool list and you call them normally.\"\nActually, usually `load_skill` unlocks the tools for the current session, so I should load it first.\nWait, let's look at the standard pattern. I should call `load_skill` and then the user will see the tools? Or does `load_skill` just enable me to call them in the next turn?\nThe description says: \"Call this FIRST when the user wants functionality not in your always-available tools. After loading, the skill's tools appear in your tool list and you call them normally.\"\nSo I will call `load_skill` for `reminders`.\nThen I will likely need to make another call or wait for the tools to appear?\nActually, I can just call `load_skill` now.\nThen in the next turn, I will use the reminder tool.\nLet's just call `load_skill` first.\nWait, the prompt says \"Remind me to check my car insurance in 10 days.\"\nI'll load the skill.",
+      "tool_calls": [
+        {
+          "id": "call_ji3zqb5y",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 11.22
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded to check their car insurance in 10 days. I need to use the `remember` function to create this reminder. \n\nFirst, I need to calculate the due date. The current date is April 22, 2026. Adding 10 days to this gives May 2, 2026.\n\nSo the due date should be \"2026-05-02\".\n\nNow I'll call the `remember` function with the following parameters:\n- title: \"Check car insurance\"\n- due_date: \"2026-05-02\"\n- urgency: \"medium\" (default is fine, but I'll omit it since it's optional)\n- type: \"task\" or \"reminder\" (I'll use \"task\" as it's a todo item)\n- recurrence: \"none\" (default)\n\nI don't need to add notes unless the user specifies them, which they haven't.",
+      "tool_calls": [
+        {
+          "id": "call_c0ai8dmn",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Check car insurance",
+              "due_date": "2026-05-02"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 10.75
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_0483a0\", \"title\": \"Check car insurance\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-02\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder to check your car insurance on Saturday, May 2nd.",
+      "thinking": "The user asked to be reminded to check their car insurance in 10 days. I have successfully created a reminder with the title \"Check car insurance\" due on 2026-05-02. I should now confirm this to the user.",
+      "_round": 2,
+      "_round_wall_s": 3.76
+    }
+  ]
+}

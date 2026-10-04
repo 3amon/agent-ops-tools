@@ -1,0 +1,87 @@
+{
+  "scenario_id": "single_tool_save",
+  "scenario_prompt": "Remind me to water the plants on Friday.",
+  "rep": 2,
+  "config": "strip",
+  "prompt": "Remind me to water the plants on Friday.",
+  "rounds_used": 3,
+  "wall_s": 18.83,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    495,
+    431,
+    216
+  ],
+  "final_text": "I've set a reminder for you to water the plants on Friday, April 24.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:54 AM PDT (ISO: 2026-04-22T10:54:48-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to water the plants on Friday."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set a reminder to water the plants on Friday.\nI need to check the available skills. The `reminders` skill is available.\nI should load the `reminders` skill to get access to the reminder tools.\nAfter loading, I will look for a tool like `add_reminder` or similar to create the reminder for \"Friday\".\nSince the current time is April 22, 2026 (Wednesday), \"Friday\" refers to April 24, 2026.\n\nPlan:\n1.  Load the `reminders` skill.\n2.  Call the appropriate tool to add the reminder.",
+      "tool_calls": [
+        {
+          "id": "call_elj4zzkn",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 6.86
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded to water the plants on Friday.\nCurrent date: Wednesday, April 22, 2026.\nNext Friday is April 24, 2026.\nI should call `remember` with the appropriate parameters.\nTitle: \"Water the plants\"\nDue date: \"2026-04-24\"\nI should check the tool definition for the type, urgency, etc.\ntype: \"todo\" or similar might be useful but the schema doesn't strictly require it beyond title.\nI will create the reminder now.",
+      "tool_calls": [
+        {
+          "id": "call_z12ip0bd",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Water the plants",
+              "due_date": "2026-04-24"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 7.88
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_49925a\", \"title\": \"Water the plants\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-04-24\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder for you to water the plants on Friday, April 24.",
+      "thinking": "The user asked to be reminded to water the plants on Friday.\nThe current date is Wednesday, April 22, 2026.\nFriday would be April 24, 2026.\nI have successfully created the reminder.\nI should confirm this to the user.",
+      "_round": 2,
+      "_round_wall_s": 4.09
+    }
+  ]
+}

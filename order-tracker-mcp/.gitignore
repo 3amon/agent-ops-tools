@@ -1,0 +1,8 @@
+# Gmail OAuth secrets and the local order database: never commit these
+credentials.json
+token.json
+.env
+data/
+.venv/
+__pycache__/
+.pytest_cache/

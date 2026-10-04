@@ -1,0 +1,148 @@
+{
+  "cells": {
+    "single_tool_save/strip": {
+      "n": 5,
+      "rounds_mean": 3.0,
+      "rounds_min": 3,
+      "rounds_max": 3,
+      "wall_mean_s": 16.982,
+      "wall_min_s": 14.69,
+      "wall_max_s": 18.83,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember"
+      ]
+    },
+    "multi_tool_chain/keep": {
+      "n": 5,
+      "rounds_mean": 3.4,
+      "rounds_min": 3,
+      "rounds_max": 4,
+      "wall_mean_s": 24.78,
+      "wall_min_s": 17.26,
+      "wall_max_s": 31.69,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "multi_skill/keep": {
+      "n": 5,
+      "rounds_mean": 3.0,
+      "rounds_min": 3,
+      "rounds_max": 3,
+      "wall_mean_s": 27.830000000000002,
+      "wall_min_s": 19.14,
+      "wall_max_s": 32.49,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "get_weather",
+        "get_headlines"
+      ]
+    },
+    "date_math/strip": {
+      "n": 5,
+      "rounds_mean": 2.8,
+      "rounds_min": 2,
+      "rounds_max": 3,
+      "wall_mean_s": 21.676,
+      "wall_min_s": 16.91,
+      "wall_max_s": 25.73,
+      "distinct_tool_seqs": 2,
+      "most_common_seq": [
+        "load_skill",
+        "remember"
+      ]
+    },
+    "date_math/keep": {
+      "n": 5,
+      "rounds_mean": 3.0,
+      "rounds_min": 3,
+      "rounds_max": 3,
+      "wall_mean_s": 21.576,
+      "wall_min_s": 17.0,
+      "wall_max_s": 33.93,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember"
+      ]
+    },
+    "multi_tool_chain/strip": {
+      "n": 5,
+      "rounds_mean": 3.6,
+      "rounds_min": 3,
+      "rounds_max": 4,
+      "wall_mean_s": 36.928,
+      "wall_min_s": 15.34,
+      "wall_max_s": 70.51,
+      "distinct_tool_seqs": 2,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "single_tool_save/keep": {
+      "n": 5,
+      "rounds_mean": 2.8,
+      "rounds_min": 2,
+      "rounds_max": 3,
+      "wall_mean_s": 18.26,
+      "wall_min_s": 12.16,
+      "wall_max_s": 28.35,
+      "distinct_tool_seqs": 2,
+      "most_common_seq": [
+        "load_skill",
+        "remember"
+      ]
+    },
+    "multi_skill/strip": {
+      "n": 5,
+      "rounds_mean": 3.0,
+      "rounds_min": 3,
+      "rounds_max": 3,
+      "wall_mean_s": 21.68,
+      "wall_min_s": 16.91,
+      "wall_max_s": 28.88,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "get_weather",
+        "get_headlines"
+      ]
+    }
+  },
+  "scenarios": {
+    "multi_skill": {
+      "rounds_delta_mean": 0.0,
+      "wall_delta_mean_s": -6.15,
+      "strip_distinct_seqs": 1,
+      "keep_distinct_seqs": 1
+    },
+    "multi_tool_chain": {
+      "rounds_delta_mean": 0.2,
+      "wall_delta_mean_s": 12.15,
+      "strip_distinct_seqs": 2,
+      "keep_distinct_seqs": 1
+    },
+    "single_tool_save": {
+      "rounds_delta_mean": 0.2,
+      "wall_delta_mean_s": -1.28,
+      "strip_distinct_seqs": 1,
+      "keep_distinct_seqs": 2
+    },
+    "date_math": {
+      "rounds_delta_mean": -0.2,
+      "wall_delta_mean_s": 0.1,
+      "strip_distinct_seqs": 2,
+      "keep_distinct_seqs": 1
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "scenario_id": "date_math",
+  "scenario_prompt": "Remind me to check my car insurance in 10 days.",
+  "rep": 3,
+  "config": "keep",
+  "prompt": "Remind me to check my car insurance in 10 days.",
+  "rounds_used": 3,
+  "wall_s": 33.93,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    1825,
+    403,
+    149
+  ],
+  "final_text": "I've set a reminder for you to check your car insurance on Saturday, May 2nd.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:48 AM PDT (ISO: 2026-04-22T10:48:38-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to check my car insurance in 10 days."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded of an event in 10 days.\nI need to use the `load_skill` function to load the `reminders` skill.\nThen I can use the tool associated with the reminders skill to set the reminder.\n\n1. Load the `reminders` skill.\n2. The user wants a reminder for \"check my car insurance\".\n3. The time is \"10 days\".\n4. Current date is April 22, 2026. 10 days from now would be May 2, 2026.\n5. The time of day is not specified, so I should ask for it or use a default (usually morning is a safe bet, but asking is better if the tool allows, or just setting the date is enough if the tool is simple). However, standard practice for these agents is often just to set it for a generic time or ask if the tool requires a specific time. Let's look at the tool definition. The prompt doesn't show the specific tool arguments for `reminders`, but usually, it involves a date/time and a description.\n6. I will load the skill first.\n\nActually, I should check if I need to provide the specific date. \"10 days\" from April 22 is May 2.\nI will load the `reminders` skill. Then I will assume the user wants to be reminded at a reasonable time (e.g., the current time of day, or just the date).\n\nLet's call `load_skill` for `reminders`.\n\nWait, the system prompt says \"Call this FIRST...\". I need to emit the call.\nAfter I emit the call, the system will provide the tools. Then I will use the tool.\nI need to be careful not to hallucinate the tool arguments before I see them, but usually, I can infer them or the system will show them.\nHowever, often I can just make the call and the result will contain the available tools.\nI will just call `load_skill` now.\n\nOne detail: \"Remind me... in 10 days\".\nCurrent time: April 22, 2026.\n10 days later: May 2, 2026.\nI will set the reminder for May 2, 2026.\n\nI will load the `reminders` skill.",
+      "tool_calls": [
+        {
+          "id": "call_xg14bqbf",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 19.2
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The `reminders` skill is loaded. I have the `remember` tool available.\nThe user wants a reminder for \"check my car insurance\" in \"10 days\".\nCurrent date is 2026-04-22. 10 days from now is 2026-05-02.\nI should use the `remember` tool.\nArguments:\n- title: \"Check car insurance\" (or similar)\n- due_date: \"2026-05-02\"\n- notes: (optional) \"In 10 days\"\n- recurrence: \"none\"\n\nI will proceed with the tool call.",
+      "tool_calls": [
+        {
+          "id": "call_e4z29wq8",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Check my car insurance",
+              "due_date": "2026-05-02"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 9.65
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_61549b\", \"title\": \"Check my car insurance\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-02\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder for you to check your car insurance on Saturday, May 2nd.",
+      "thinking": "I have successfully created the reminder. The ID is `r_61549b` and it is due on May 2, 2026. I should inform the user that the reminder has been set.",
+      "_round": 2,
+      "_round_wall_s": 5.08
+    }
+  ]
+}

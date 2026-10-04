@@ -1,0 +1,7 @@
+{
+  "scenario_id": "three_tool_mixed_skills",
+  "scenario_prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rep": 6,
+  "config": "keep",
+  "error": "timeout: timed out"
+}

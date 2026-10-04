@@ -1,0 +1,116 @@
+{
+  "scenario_id": "multi_tool_chain",
+  "scenario_prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rep": 6,
+  "config": "keep",
+  "prompt": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week.",
+  "rounds_used": 4,
+  "wall_s": 29.37,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember",
+    "list_reminders"
+  ],
+  "thinking_chars_per_round": [
+    507,
+    677,
+    178,
+    313
+  ],
+  "final_text": "I've set a reminder for you to pay rent on the 1st of each month.\n\nCurrently, there is nothing on your list for this week.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 11:50 AM PDT (ISO: 2026-04-22T11:50:05-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to pay rent on the 1st of each month, then tell me what's on my list this week."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants two things:\n1. A reminder to pay rent on the 1st of each month.\n2. To see what is currently on their list for this week.\n\nFirst, I need to load the `reminders` skill to manage the new recurring reminder.\nThen, I will add the reminder for paying rent on the 1st of each month.\nFinally, I will check the user's existing list for the week.\n\nStep 1: Load `reminders`.\nStep 2: Add reminder \"Pay rent\" on the 1st of each month.\nStep 3: Query list for \"this week\".\n\nLet's start by loading the skill.",
+      "tool_calls": [
+        {
+          "id": "call_dfqxkvmo",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 7.05
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "I have loaded the reminders skill. Now I need to:\n1. Create a reminder for paying rent on the 1st of each month. Since the user said \"1st of each month\", I should set the `due_date` to the next 1st, which is May 1st, 2026 (2026-05-01), and set `recurrence` to `monthly`.\n2. Check the current list for this week using `list_reminders` with `this_week`.\n\nWait, the user is asking to be reminded \"on the 1st of each month\". I should use the `remember` tool to create this.\nI need to calculate the `due_date` for the recurrence start. The next 1st is May 1, 2026.\nSo, `due_date`: \"2026-05-01\", `recurrence`: \"monthly\".\n\nThen I will call `list_reminders` with `filter`: \"this_week\".",
+      "tool_calls": [
+        {
+          "id": "call_bv63md3l",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "due_date": "2026-05-01",
+              "recurrence": "monthly",
+              "title": "Pay rent",
+              "type": "bill"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 12.11
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_53ca15\", \"title\": \"Pay rent\", \"type\": \"bill\", \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The reminder for paying rent has been created successfully. Now I need to check what is on the user's list for this week. I will use `list_reminders` with the `this_week` filter.",
+      "tool_calls": [
+        {
+          "id": "call_3iesn9t6",
+          "function": {
+            "index": 0,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        }
+      ],
+      "_round": 2,
+      "_round_wall_s": 4.44
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 2
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder for you to pay rent on the 1st of each month.\n\nCurrently, there is nothing on your list for this week.",
+      "thinking": "The user asked for a reminder for rent and what is on their list this week.\nI have successfully added the monthly rent reminder.\nI have checked the list for this week, and there are 0 items.\n\nSo the response should confirm the rent reminder is set and state that there is nothing else on their list for this week.",
+      "_round": 3,
+      "_round_wall_s": 5.77
+    }
+  ]
+}

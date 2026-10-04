@@ -1,0 +1,140 @@
+{
+  "scenario_id": "three_tool_mixed_skills",
+  "scenario_prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rep": 9,
+  "config": "strip",
+  "prompt": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast.",
+  "rounds_used": 3,
+  "wall_s": 37.74,
+  "tool_call_sequence": [
+    "load_skill",
+    "load_skill",
+    "remember",
+    "list_reminders",
+    "get_weather"
+  ],
+  "thinking_chars_per_round": [
+    557,
+    1283,
+    160
+  ],
+  "final_text": "Done! Here's everything:\n\n* **Reminder saved:** \"Pay rent\" recurring monthly on the 1st. (Next due May 1.)\n* **This week's reminders:** You have nothing currently scheduled for this week.\n* **Weather forecast (Oakland, CA):**\n  * **Today (Wed):** Overcast, 62\u00b0/50\u00b0, 20% rain\n  * **Tomorrow (Thu):** Rain, 58\u00b0/48\u00b0, 80% rain\n  * **Fri:** Partly cloudy, 64\u00b0/49\u00b0\n  * **Sat:** Clear, 70\u00b0/51\u00b0\n  * **Sun:** Clear, 72\u00b0/52\u00b0\n  * **Mon:** Partly cloudy, 68\u00b0/51\u00b0\n  * **Tue:** Clear, 71\u00b0/52\u00b0\n\nAlert: Expect ~0.8in of rain tomorrow (Thu).",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 11:33 AM PDT (ISO: 2026-04-22T11:33:38-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Save a reminder to pay rent on the 1st of each month, tell me what's on my list this week, and tell me the weather forecast."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user is asking for three things:\n1.  Save a reminder to pay rent on the 1st of each month.\n2.  Tell them what's on their list this week.\n3.  Tell them the weather forecast.\n\nI need to use the `reminders` skill for the first two tasks.\nI need to use the `weather` skill for the third task.\n\nI will load both skills in parallel.\nThen I will execute the reminder tool to add the rent reminder.\nThen I will execute the reminder tool to list the current reminders.\nThen I will execute the weather tool to get the forecast.\n\nLet's start by loading the skills.",
+      "tool_calls": [
+        {
+          "id": "call_gkr7xeku",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        },
+        {
+          "id": "call_9zf9oqeo",
+          "function": {
+            "index": 1,
+            "name": "load_skill",
+            "arguments": {
+              "name": "weather"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 7.9
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"weather\", \"description\": \"weather + forecast\", \"tools_now_available\": [\"get_weather\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants three things:\n1. Save a reminder to pay rent on the 1st of each month.\n2. Tell them what's on their list this week.\n3. Tell them the weather forecast.\n\nI have the tools `remember`, `list_reminders`, and `get_weather`.\n\nFor the rent reminder:\n- Title: \"Pay rent\"\n- Recurrence: \"monthly\"\n- Due date: Since it's April 22, the next 1st of the month is May 1, 2026. I should probably set the recurrence start or rely on the recurrence config to handle the \"1st of each month\" logic. The description says \"Resolve natural-language dates to ISO YYYY-MM-DD before calling\".\n- `recurrence`: \"monthly\"\n- `due_date`: \"2026-05-01\" (Next occurrence)\n- `recurrence_config`: {\"day_of_month\": 1} or similar? The schema just says `object`. I'll stick to standard recurrence logic.\n\nFor the list this week:\n- `filter`: \"this_week\"\n\nFor the weather forecast:\n- `get_weather` (default location is Oakland, CA). The user didn't specify a location, so I'll stick to the default or ask. Given the prompt is \"tell me the weather forecast\", I'll use the default.\n\nI need to call `remember`, `list_reminders`, and `get_weather`.\n\nReminder details:\n- Title: \"Pay rent\"\n- Recurrence: \"monthly\"\n- Due date: 2026-05-01\n- Notes: \"Rent payment\" (optional but good for clarity).\n\nLet's make the calls.",
+      "tool_calls": [
+        {
+          "id": "call_ukotcgpv",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "title": "Pay rent",
+              "recurrence": "monthly",
+              "due_date": "2026-05-01",
+              "notes": "Monthly rent payment"
+            }
+          }
+        },
+        {
+          "id": "call_bnh8xx32",
+          "function": {
+            "index": 1,
+            "name": "list_reminders",
+            "arguments": {
+              "filter": "this_week"
+            }
+          }
+        },
+        {
+          "id": "call_j08o5vn2",
+          "function": {
+            "index": 2,
+            "name": "get_weather",
+            "arguments": {
+              "days": 5
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 19.05
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_eb57b0\", \"title\": \"Pay rent\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-05-01\", \"recurrence\": \"monthly\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"count\": 0, \"items\": [], \"today\": \"2026-04-22\"}",
+      "name": "list_reminders",
+      "_round": 1
+    },
+    {
+      "role": "tool",
+      "content": "{\"location\": \"Oakland, CA\", \"current\": {\"temp_f\": 59, \"condition\": \"Overcast\", \"wind_mph\": 7}, \"daily\": [{\"date\": \"2026-04-22\", \"condition\": \"Overcast\", \"high_f\": 62, \"low_f\": 50, \"precip_chance_pct\": 20}, {\"date\": \"2026-04-23\", \"condition\": \"Rain\", \"high_f\": 58, \"low_f\": 48, \"precip_chance_pct\": 80}, {\"date\": \"2026-04-24\", \"condition\": \"Partly cloudy\", \"high_f\": 64, \"low_f\": 49, \"precip_chance_pct\": 10}, {\"date\": \"2026-04-25\", \"condition\": \"Clear\", \"high_f\": 70, \"low_f\": 51, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-26\", \"condition\": \"Clear\", \"high_f\": 72, \"low_f\": 52, \"precip_chance_pct\": 0}, {\"date\": \"2026-04-27\", \"condition\": \"Partly cloudy\", \"high_f\": 68, \"low_f\": 51, \"precip_chance_pct\": 15}, {\"date\": \"2026-04-28\", \"condition\": \"Clear\", \"high_f\": 71, \"low_f\": 52, \"precip_chance_pct\": 5}], \"alerts\": [\"Heavy rain: 2026-04-23 \\u2014 0.8in expected\"], \"changes\": []}",
+      "name": "get_weather",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "Done! Here's everything:\n\n* **Reminder saved:** \"Pay rent\" recurring monthly on the 1st. (Next due May 1.)\n* **This week's reminders:** You have nothing currently scheduled for this week.\n* **Weather forecast (Oakland, CA):**\n  * **Today (Wed):** Overcast, 62\u00b0/50\u00b0, 20% rain\n  * **Tomorrow (Thu):** Rain, 58\u00b0/48\u00b0, 80% rain\n  * **Fri:** Partly cloudy, 64\u00b0/49\u00b0\n  * **Sat:** Clear, 70\u00b0/51\u00b0\n  * **Sun:** Clear, 72\u00b0/52\u00b0\n  * **Mon:** Partly cloudy, 68\u00b0/51\u00b0\n  * **Tue:** Clear, 71\u00b0/52\u00b0\n\nAlert: Expect ~0.8in of rain tomorrow (Thu).",
+      "thinking": "The user wanted three things: a recurring rent reminder, list of reminders this week, and the weather forecast. I've done all three. Let me summarize concisely.",
+      "_round": 2,
+      "_round_wall_s": 10.8
+    }
+  ]
+}

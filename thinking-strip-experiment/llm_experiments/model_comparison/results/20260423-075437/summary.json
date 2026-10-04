@@ -1,0 +1,133 @@
+{
+  "cells": {
+    "three_tool_mixed_skills/qwen3.6:35b-a3b-fast": {
+      "n": 10,
+      "rounds_mean": 3.0,
+      "wall_mean_s": 41.6,
+      "wall_min_s": 24.1,
+      "wall_max_s": 68.2,
+      "tps_mean": 30.2,
+      "thinking_chars_mean": 2146,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "remember",
+        "list_reminders",
+        "get_weather"
+      ]
+    },
+    "three_tool_mixed_skills/qwen3.6:27b": {
+      "n": 9,
+      "rounds_mean": 3.0,
+      "wall_mean_s": 162.6,
+      "wall_min_s": 122.5,
+      "wall_max_s": 209.6,
+      "tps_mean": 9.3,
+      "thinking_chars_mean": 2688,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "load_skill",
+        "remember",
+        "list_reminders",
+        "get_weather"
+      ]
+    },
+    "conditional_act_on_tool_output/qwen3.6:35b-a3b-fast": {
+      "n": 10,
+      "rounds_mean": 4.5,
+      "wall_mean_s": 43.2,
+      "wall_min_s": 29.8,
+      "wall_max_s": 55.9,
+      "tps_mean": 30.3,
+      "thinking_chars_mean": 2517,
+      "distinct_tool_seqs": 4,
+      "most_common_seq": [
+        "load_skill",
+        "get_weather",
+        "load_skill",
+        "remember"
+      ]
+    },
+    "multi_tool_chain/qwen3.6:27b": {
+      "n": 8,
+      "rounds_mean": 3.25,
+      "wall_mean_s": 131.2,
+      "wall_min_s": 72.5,
+      "wall_max_s": 208.1,
+      "tps_mean": 9.4,
+      "thinking_chars_mean": 2682,
+      "distinct_tool_seqs": 1,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "multi_tool_chain/qwen3.6:35b-a3b-fast": {
+      "n": 10,
+      "rounds_mean": 4.2,
+      "wall_mean_s": 56.5,
+      "wall_min_s": 26.6,
+      "wall_max_s": 257.2,
+      "tps_mean": 30.2,
+      "thinking_chars_mean": 3941,
+      "distinct_tool_seqs": 2,
+      "most_common_seq": [
+        "load_skill",
+        "remember",
+        "list_reminders"
+      ]
+    },
+    "conditional_act_on_tool_output/qwen3.6:27b": {
+      "n": 9,
+      "rounds_mean": 4.44,
+      "wall_mean_s": 163.7,
+      "wall_min_s": 94.1,
+      "wall_max_s": 274.8,
+      "tps_mean": 9.4,
+      "thinking_chars_mean": 3167,
+      "distinct_tool_seqs": 4,
+      "most_common_seq": [
+        "load_skill",
+        "get_weather",
+        "load_skill",
+        "remember"
+      ]
+    }
+  },
+  "head_to_head": {
+    "conditional_act_on_tool_output": {
+      "wall_delta_b_minus_a_s": 120.5,
+      "tps_a": 30.3,
+      "tps_b": 9.4,
+      "thinking_delta_b_minus_a": 650,
+      "rounds_delta_b_minus_a": -0.06,
+      "a_distinct_seqs": 4,
+      "b_distinct_seqs": 4
+    },
+    "multi_tool_chain": {
+      "wall_delta_b_minus_a_s": 74.7,
+      "tps_a": 30.2,
+      "tps_b": 9.4,
+      "thinking_delta_b_minus_a": -1259,
+      "rounds_delta_b_minus_a": -0.95,
+      "a_distinct_seqs": 2,
+      "b_distinct_seqs": 1
+    },
+    "three_tool_mixed_skills": {
+      "wall_delta_b_minus_a_s": 121.0,
+      "tps_a": 30.2,
+      "tps_b": 9.3,
+      "thinking_delta_b_minus_a": 542,
+      "rounds_delta_b_minus_a": 0.0,
+      "a_distinct_seqs": 1,
+      "b_distinct_seqs": 1
+    }
+  },
+  "models": [
+    "qwen3.6:35b-a3b-fast",
+    "qwen3.6:27b"
+  ]
+}

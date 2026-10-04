@@ -1,0 +1,87 @@
+{
+  "scenario_id": "single_tool_save",
+  "scenario_prompt": "Remind me to water the plants on Friday.",
+  "rep": 3,
+  "config": "keep",
+  "prompt": "Remind me to water the plants on Friday.",
+  "rounds_used": 3,
+  "wall_s": 12.16,
+  "tool_call_sequence": [
+    "load_skill",
+    "remember"
+  ],
+  "thinking_chars_per_round": [
+    125,
+    232,
+    73
+  ],
+  "final_text": "I've set a reminder for you to water the plants on Friday, April 24.",
+  "transcript": [
+    {
+      "role": "system",
+      "content": "You are a local AI agent. Respond concisely. Use tools when they help; don't narrate calls. Keep replies short. Use bullets when listing. If you don't know something and no tool can get it, say so plainly instead of guessing.\n\nCurrent time: Wednesday, April 22, 2026 at 10:55 AM PDT (ISO: 2026-04-22T10:55:07-07:00)."
+    },
+    {
+      "role": "user",
+      "content": "Remind me to water the plants on Friday."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to set a reminder. This requires the 'reminders' skill. I need to call `load_skill` with the name 'reminders'.",
+      "tool_calls": [
+        {
+          "id": "call_lnw8uzec",
+          "function": {
+            "index": 0,
+            "name": "load_skill",
+            "arguments": {
+              "name": "reminders"
+            }
+          }
+        }
+      ],
+      "_round": 0,
+      "_round_wall_s": 3.27
+    },
+    {
+      "role": "tool",
+      "content": "{\"loaded\": \"reminders\", \"description\": \"manage todos / bills / appointments\", \"tools_now_available\": [\"remember\", \"list_reminders\"]}",
+      "name": "load_skill",
+      "_round": 0
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "thinking": "The user wants to be reminded to water the plants on Friday. The current date is Wednesday, April 22, 2026. Friday would be April 24, 2026. I should create a reminder with the due date of 2026-04-24 and the title 'water the plants'.",
+      "tool_calls": [
+        {
+          "id": "call_cm0o76ci",
+          "function": {
+            "index": 0,
+            "name": "remember",
+            "arguments": {
+              "due_date": "2026-04-24",
+              "title": "Water the plants"
+            }
+          }
+        }
+      ],
+      "_round": 1,
+      "_round_wall_s": 6.16
+    },
+    {
+      "role": "tool",
+      "content": "{\"created\": {\"id\": \"r_3c04cc\", \"title\": \"Water the plants\", \"type\": null, \"urgency\": \"medium\", \"due_date\": \"2026-04-24\", \"recurrence\": \"none\", \"recurrence_config\": null, \"completions\": [], \"status\": \"open\"}}",
+      "name": "remember",
+      "_round": 1
+    },
+    {
+      "role": "assistant",
+      "content": "I've set a reminder for you to water the plants on Friday, April 24.",
+      "thinking": "The reminder was successfully created. I should confirm this to the user.",
+      "_round": 2,
+      "_round_wall_s": 2.73
+    }
+  ]
+}
